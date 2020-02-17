@@ -131,8 +131,7 @@ public class ProtoBuf(
         override fun shouldEncodeElementDefault(descriptor: SerialDescriptor, index: Int): Boolean = encodeDefaults
 
         override fun beginStructure(
-            descriptor: SerialDescriptor,
-            vararg typeSerializers: KSerializer<*>
+            descriptor: SerialDescriptor
         ): CompositeEncoder = when (descriptor.kind) {
             StructureKind.LIST -> RepeatedWriter(encoder, currentTag)
             StructureKind.CLASS, StructureKind.OBJECT, is PolymorphicKind -> ObjectWriter(currentTagOrNull, encoder)
@@ -273,7 +272,7 @@ public class ProtoBuf(
                 ).first == serialId
             } ?: -1
 
-        override fun beginStructure(descriptor: SerialDescriptor, vararg typeParams: KSerializer<*>): CompositeDecoder =
+        override fun beginStructure(descriptor: SerialDescriptor): CompositeDecoder =
             when (descriptor.kind) {
                 StructureKind.LIST -> RepeatedReader(decoder, currentTag)
                 StructureKind.CLASS, StructureKind.OBJECT, is PolymorphicKind ->
