@@ -105,9 +105,10 @@ public interface Decoder {
      */
     public val context: SerialModule
 
-    @Suppress("DEPRECATION_ERROR")
+    @Suppress("DEPRECATION")
     @Deprecated(updateModeDeprecated, level = DeprecationLevel.ERROR)
     public val updateMode: UpdateMode
+        get() = UpdateMode.OVERWRITE
 
     /**
      * Returns `true` if the current value in decoder is not null, false otherwise.
@@ -302,9 +303,10 @@ public interface CompositeDecoder {
      */
     public val context: SerialModule
 
-    @Suppress("DEPRECATION_ERROR")
+    @Suppress("DEPRECATION")
     @Deprecated(updateModeDeprecated, level = DeprecationLevel.ERROR)
     public val updateMode: UpdateMode
+        get() = UpdateMode.OVERWRITE
 
     /**
      * Denotes the end of the structure associated with current decoder.
