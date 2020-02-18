@@ -303,15 +303,21 @@ public class ProtoBuf(
             findIndexByTag(enumDescription, decoder.nextInt(ProtoNumberType.DEFAULT), zeroBasedDefault = true)
 
         @Suppress("UNCHECKED_CAST")
-        override fun <T> decodeSerializableValue(deserializer: DeserializationStrategy<T>): T = when {
+        override fun <T> decodeSerializableValue(deserializer: DeserializationStrategy<T>, oldValue: T?): T = when {
             // encode maps as collection of map entries, not merged collection of key-values
             deserializer is MapLikeSerializer<*, *, *, *> -> {
                 val serializer = (deserializer as MapLikeSerializer<Any?, Any?, T, *>)
                 val mapEntrySerial = MapEntrySerializer(serializer.keySerializer, serializer.valueSerializer)
-                val setOfEntries = SetSerializer(mapEntrySerial).deserialize(this)
-                setOfEntries.associateBy({ it.key }, {it.value}) as T
+                val oldSet = (oldValue as? Map<Any?, Any?>)?.entries
+                val setOfEntries = SetSerializer(mapEntrySerial).merge(this, oldSet)
+                setOfEntries.associateBy({ it.key }, { it.value }) as T
             }
-            deserializer.descriptor == ByteArraySerializer().descriptor -> decoder.nextObject() as T
+            deserializer.descriptor == ByteArraySerializer().descriptor -> {
+                val newValue = decoder.nextObject()
+                (if (oldValue == null) newValue else (oldValue as ByteArray) + newValue) as T
+            }
+            deserializer is AbstractCollectionSerializer<*, *, *> ->
+                (deserializer as AbstractCollectionSerializer<*, T, *>).merge(this, oldValue)
             else -> deserializer.deserialize(this)
         }
 

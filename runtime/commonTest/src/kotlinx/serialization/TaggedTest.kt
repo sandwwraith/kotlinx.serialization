@@ -45,7 +45,6 @@ class TaggedTest {
     }
 
     @Test
-    @Ignore
     fun testTagged() {
         val collector = Collector()
         val data = DataWithId(1, "2")

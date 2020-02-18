@@ -193,7 +193,9 @@ public abstract class TaggedDecoder<Tag : Any?> : Decoder,
     override val context: SerialModule
         get() = EmptyModule
 
-    override val updateMode: UpdateMode =
+    @Suppress("DEPRECATION")
+    @Deprecated(updateModeDeprecated, level = DeprecationLevel.ERROR)
+    final override val updateMode: UpdateMode =
         UpdateMode.UPDATE
 
     protected abstract fun SerialDescriptor.getTag(index: Int): Tag
@@ -292,27 +294,23 @@ public abstract class TaggedDecoder<Tag : Any?> : Decoder,
     final override fun <T : Any?> decodeSerializableElement(
         descriptor: SerialDescriptor,
         index: Int,
-        deserializer: DeserializationStrategy<T>
+        deserializer: DeserializationStrategy<T>,
+        oldValue: T?
     ): T =
-        tagBlock(descriptor.getTag(index)) { decodeSerializableValue(deserializer) }
+        tagBlock(descriptor.getTag(index)) { decodeSerializableValue(deserializer, oldValue) }
 
     final override fun <T : Any> decodeNullableSerializableElement(
         descriptor: SerialDescriptor,
         index: Int,
-        deserializer: DeserializationStrategy<T?>
+        deserializer: DeserializationStrategy<T?>,
+        oldValue: T?
     ): T? =
-        tagBlock(descriptor.getTag(index)) { decodeNullableSerializableValue(deserializer) }
-
-    override fun <T> updateSerializableElement(
-        descriptor: SerialDescriptor,
-        index: Int,
-        deserializer: DeserializationStrategy<T>,
-        old: T
-    ): T =
-        tagBlock(descriptor.getTag(index)) { updateSerializableValue(deserializer, old) }
-
-    override fun <T : Any> updateNullableSerializableElement(descriptor: SerialDescriptor, index: Int, deserializer: DeserializationStrategy<T?>, old: T?): T? =
-        tagBlock(descriptor.getTag(index)) { updateNullableSerializableValue(deserializer, old) }
+        tagBlock(descriptor.getTag(index)) {
+            if (decodeNotNullMark()) decodeSerializableValue(
+                deserializer,
+                oldValue
+            ) else decodeNull()
+        }
 
     private fun <E> tagBlock(tag: Tag, block: () -> E): E {
         pushTag(tag)

@@ -105,6 +105,7 @@ public interface Decoder {
      */
     public val context: SerialModule
 
+    @Suppress("DEPRECATION_ERROR")
     @Deprecated(updateModeDeprecated, level = DeprecationLevel.ERROR)
     public val updateMode: UpdateMode
 
@@ -301,6 +302,7 @@ public interface CompositeDecoder {
      */
     public val context: SerialModule
 
+    @Suppress("DEPRECATION_ERROR")
     @Deprecated(updateModeDeprecated, level = DeprecationLevel.ERROR)
     public val updateMode: UpdateMode
 
@@ -588,7 +590,7 @@ public inline fun <T> Decoder.decodeStructure(
 }
 
 
-private const val updateModeDeprecated = "Update mode in Decoder is deprecated for removal. " +
+internal const val updateModeDeprecated = "Update mode in Decoder is deprecated for removal. " +
         "Update behaviour is now considered an implementation detail of the format that should not concern serializer."
 
 private const val updateMethodDeprecated = "Update* methods are deprecated for removal. " +
