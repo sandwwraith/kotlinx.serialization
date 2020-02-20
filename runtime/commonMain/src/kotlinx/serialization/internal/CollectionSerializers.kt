@@ -162,7 +162,7 @@ public abstract class PrimitiveArraySerializer<Element, Array, Builder
     final override fun Builder.insert(index: Int, element: Element): Unit =
         error("This method lead to boxing and must not be used, use Builder.append instead")
 
-    final override fun builder(): Builder = error("Use empty().toBuilder() instead")
+    final override fun builder(): Builder = empty().toBuilder()
 
     protected abstract fun empty(): Array
 
