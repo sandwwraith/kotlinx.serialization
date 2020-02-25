@@ -502,32 +502,34 @@ public interface CompositeDecoder {
      * for particular data types, e.g. handle [ByteArray] specifically if format is binary.
      *
      * If value at given [index] was already decoded with previous [decodeSerializableElement] call with the same index,
-     * [oldValue] would contain a previously decoded value.
-     * Implementation may ignore it and return new value, efficiently overwriting decoded value,
-     * or process it and return merged value if format supports such an operation.
+     * [previousValue] would contain a previously decoded value.
+     * This parameter can be used to aggregate multiple values of the given property to the only one.
+     * Implementation can safely ignore it and return a new value, efficiently using 'the last one wins' strategy,
+     * or apply format-specific aggregating strategies, e.g. appending scattered Protobuf lists to a single one.
      */
     @Suppress("DEPRECATION_ERROR")
     public fun <T : Any?> decodeSerializableElement(
         descriptor: SerialDescriptor,
         index: Int,
         deserializer: DeserializationStrategy<T>,
-        oldValue: T? = null
+        previousValue: T? = null
     ): T = decodeSerializableElement(descriptor, i = index, deserializer = deserializer)
 
     /**
      * Decodes nullable value of the type [T] with the given [deserializer].
      *
-     * If value at given [index] was already decoded with previous [decodeNullableSerializableElement] call with the same index,
-     * [oldValue] would contain a previously decoded value.
-     * Implementation may ignore it and return new value, efficiently overwriting decoded value,
-     * or process it and return merged value if format supports such an operation.
+     * If value at given [index] was already decoded with previous [decodeSerializableElement] call with the same index,
+     * [previousValue] would contain a previously decoded value.
+     * This parameter can be used to aggregate multiple values of the given property to the only one.
+     * Implementation can safely ignore it and return a new value, efficiently using 'the last one wins' strategy,
+     * or apply format-specific aggregating strategies, e.g. appending scattered Protobuf lists to a single one.
      */
     @Suppress("DEPRECATION_ERROR")
     public fun <T : Any> decodeNullableSerializableElement(
         descriptor: SerialDescriptor,
         index: Int,
         deserializer: DeserializationStrategy<T?>,
-        oldValue: T? = null
+        previousValue: T? = null
     ): T? = decodeNullableSerializableElement(descriptor, i = index, deserializer = deserializer)
 
     @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE", "DeprecatedCallableAddReplaceWith")

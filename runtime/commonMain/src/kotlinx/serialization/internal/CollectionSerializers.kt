@@ -20,6 +20,7 @@ public sealed class AbstractCollectionSerializer<Element, Collection, Builder> :
 
     abstract override fun serialize(encoder: Encoder, value: Collection)
 
+    @InternalSerializationApi
     fun merge(decoder: Decoder, old: Collection?): Collection {
         val builder = old?.toBuilder() ?: builder()
         val startIndex = builder.builderSize()

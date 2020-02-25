@@ -295,20 +295,20 @@ public abstract class TaggedDecoder<Tag : Any?> : Decoder,
         descriptor: SerialDescriptor,
         index: Int,
         deserializer: DeserializationStrategy<T>,
-        oldValue: T?
+        previousValue: T?
     ): T =
-        tagBlock(descriptor.getTag(index)) { decodeSerializableValue(deserializer, oldValue) }
+        tagBlock(descriptor.getTag(index)) { decodeSerializableValue(deserializer, previousValue) }
 
     final override fun <T : Any> decodeNullableSerializableElement(
         descriptor: SerialDescriptor,
         index: Int,
         deserializer: DeserializationStrategy<T?>,
-        oldValue: T?
+        previousValue: T?
     ): T? =
         tagBlock(descriptor.getTag(index)) {
             if (decodeNotNullMark()) decodeSerializableValue(
                 deserializer,
-                oldValue
+                previousValue
             ) else decodeNull()
         }
 
