@@ -8,7 +8,7 @@ import kotlinx.serialization.internal.*
 
 /**
  * Builder for [SerialDescriptor].
- * The resulting descriptor will be uniquely identified by the given [serialName],
+ * The resulting descriptor will be uniquely identified by the given [serialName] and [typeParameters],
  * with the corresponding [kind] and structure described in [builder] function.
  *
  * Example:
@@ -27,16 +27,31 @@ import kotlinx.serialization.internal.*
  *     element("stringField", listDescriptor<String>())
  * }
  * ```
+ *
+ * Example for generic classes:
+ * ```
+ * @Serializable(CustomSerializer::class)
+ * class BoxedList<T>(val list: List<T>)
+ *
+ * class CustomSerializer<T>(typeParamSerializer: KSerializer<T>): KSerializer<BoxedList<T>> {
+ *   // here we use typeParamSerializer.descriptor because it represents T
+ *   override val descriptor = SerialDescriptor("pkg.BoxedList", CLASS, typeParamSerializer.descriptor) {
+ *     // here we need to wrap it with List first, because property has type List<T>
+ *     element("list", typeParamSerializer.list.descriptor) // or listDescriptor(typeParamSerializer.descriptor)
+ *   }
+ * }
+ * ```
  */
 public fun SerialDescriptor(
     serialName: String,
     kind: SerialKind = StructureKind.CLASS,
+    vararg typeParameters: SerialDescriptor,
     builder: SerialDescriptorBuilder.() -> Unit = {}
 ): SerialDescriptor {
     require(serialName.isNotBlank()) { "Blank serial names are prohibited" }
     val sdBuilder = SerialDescriptorBuilder(serialName)
     sdBuilder.builder()
-    return SerialDescriptorImpl(serialName, kind, sdBuilder.elementNames.size, sdBuilder)
+    return SerialDescriptorImpl(serialName, kind, sdBuilder.elementNames.size, typeParameters.toList(), sdBuilder)
 }
 
 /**
@@ -207,6 +222,7 @@ internal class SerialDescriptorImpl(
     override val serialName: String,
     override val kind: SerialKind,
     override val elementsCount: Int,
+    val typeParameters: List<SerialDescriptor>,
     builder: SerialDescriptorBuilder
 ) : SerialDescriptor {
 
@@ -229,6 +245,7 @@ internal class SerialDescriptorImpl(
         if (this === other) return true
         if (other !is SerialDescriptor) return false
         if (serialName != other.serialName) return false
+        if (typeParameters != other.typeParameters()) return false
         return true
     }
 

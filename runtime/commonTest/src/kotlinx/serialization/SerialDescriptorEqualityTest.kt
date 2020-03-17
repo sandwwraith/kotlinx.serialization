@@ -12,6 +12,7 @@ class SerialDescriptorEqualityTest {
     class TypeParamUsedOnce<T>(val t: T)
 
     @Serializable
+    @SerialName("TypeParamUsedTwice")
     class TypeParamUsedTwice<T>(val t: T, val l: List<T>)
 
     @Serializable
@@ -55,5 +56,20 @@ class SerialDescriptorEqualityTest {
         val desc = RecursiveSimple.serializer().descriptor
         assertEquals(desc, desc)
         assertNotEquals(desc, Recursive.serializer(String.serializer()).descriptor)
+    }
+
+    @Test
+    fun canBeComparedToUserDescriptor() {
+        val typeParam = Int.serializer().descriptor
+        val userDefinedWithInt =
+            SerialDescriptor("TypeParamUsedTwice", StructureKind.CLASS, typeParam) {
+                element("t", typeParam)
+                element("l", listDescriptor(typeParam))
+            }
+
+        val generatedWithInt = TypeParamUsedTwice.serializer(Int.serializer()).descriptor
+        val generatedWithString = TypeParamUsedTwice.serializer(String.serializer()).descriptor
+        assertEquals(generatedWithInt, userDefinedWithInt)
+        assertNotEquals(generatedWithString, userDefinedWithInt)
     }
 }

@@ -111,7 +111,7 @@ public open class PluginGeneratedSerialDescriptor(
 @Suppress("DEPRECATION_ERROR")
 internal fun SerialDescriptor.typeParameters(): List<SerialDescriptor> = when (this) {
     is PluginGeneratedSerialDescriptor -> typeParameterDescriptors
-    is SerialDescriptorImpl -> TODO("User descriptor")
+    is SerialDescriptorImpl -> typeParameters
     is ListLikeDescriptor -> listOf(elementDescriptor) // note: equals with ListLikeDesc is not symmetric because it does not accept other subclasses
     is MapLikeDescriptor -> listOf(keyDescriptor, valueDescriptor)
     is SerialDescriptorForNullable -> original.typeParameters() // also not symmetric.
