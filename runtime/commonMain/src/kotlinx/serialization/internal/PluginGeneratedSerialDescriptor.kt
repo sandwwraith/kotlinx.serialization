@@ -24,10 +24,12 @@ public open class PluginGeneratedSerialDescriptor(
     private var added = -1
     private val names = Array(elementsCount) { "[UNINITIALIZED]" }
     private val propertiesAnnotations = arrayOfNulls<MutableList<Annotation>?>(elementsCount)
+
     // Classes rarely have annotations, so we can save up a bit of allocations here
     private var classAnnotations: MutableList<Annotation>? = null
     private var flags = BooleanArray(elementsCount)
     internal val namesSet: Set<String> get() = indices.keys
+
     // don't change lazy mode: KT-32871, KT-32872
     private val indices: Map<String, Int> by lazy { buildIndices() }
 
@@ -59,11 +61,17 @@ public open class PluginGeneratedSerialDescriptor(
 
     override fun getElementDescriptor(index: Int): SerialDescriptor {
         return generatedSerializer?.childSerializers()?.get(index)?.descriptor
-        ?: throw IndexOutOfBoundsException("$serialName descriptor has only $elementsCount elements, index: $index")
+                ?: throw IndexOutOfBoundsException("$serialName descriptor has only $elementsCount elements, index: $index")
+    }
+
+    internal val typeParameterDescriptors: List<SerialDescriptor> by lazy {
+        generatedSerializer?.typeParametersSerializers()?.map { it.descriptor }.orEmpty()
     }
 
     override fun isElementOptional(index: Int): Boolean = flags.getChecked(index)
-    override fun getElementAnnotations(index: Int): List<Annotation> = propertiesAnnotations.getChecked(index) ?: emptyList()
+    override fun getElementAnnotations(index: Int): List<Annotation> =
+        propertiesAnnotations.getChecked(index) ?: emptyList()
+
     override fun getElementName(index: Int): String = names.getChecked(index)
     override fun getElementIndex(name: String): Int = indices[name] ?: UNKNOWN_NAME
 
@@ -80,19 +88,32 @@ public open class PluginGeneratedSerialDescriptor(
         @Suppress("DEPRECATION_ERROR")
         if (other !is SerialDescriptor) return false
         if (serialName != other.serialName) return false
-        // TODO compare only serial names
-        if (elementDescriptors() != other.elementDescriptors()) return false
+        if (typeParameterDescriptors != other.typeParameters()) return false
         return true
     }
 
     override fun hashCode(): Int {
         var result = serialName.hashCode()
-        // TODO hashcode only for serial name
-        result = 31 * result + elementDescriptors().hashCode()
+        result = 31 * result + typeParameterDescriptors.hashCode()
         return result
     }
 
+    // todo: should type parameters be in serial name?
     override fun toString(): String {
-        return indices.entries.joinToString(", ", "$serialName(", ")") { it.key + ": " + getElementDescriptor(it.value).serialName }
+        return indices.entries.joinToString(", ", "$serialName(", ")") {
+            it.key + ": " + getElementDescriptor(it.value).serialName
+        }
     }
+}
+
+// this function is for comparing user-defined and plugin-generated descriptors.
+// Do we really need it?
+@Suppress("DEPRECATION_ERROR")
+internal fun SerialDescriptor.typeParameters(): List<SerialDescriptor> = when (this) {
+    is PluginGeneratedSerialDescriptor -> typeParameterDescriptors
+    is SerialDescriptorImpl -> TODO("User descriptor")
+    is ListLikeDescriptor -> listOf(elementDescriptor) // note: equals with ListLikeDesc is not symmetric because it does not accept other subclasses
+    is MapLikeDescriptor -> listOf(keyDescriptor, valueDescriptor)
+    is SerialDescriptorForNullable -> original.typeParameters() // also not symmetric.
+    else -> emptyList()
 }

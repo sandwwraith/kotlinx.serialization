@@ -203,7 +203,7 @@ public inline fun <reified T> SerialDescriptorBuilder.setDescriptor(): SerialDes
     return setDescriptor(serializer<T>().descriptor)
 }
 
-private class SerialDescriptorImpl(
+internal class SerialDescriptorImpl(
     override val serialName: String,
     override val kind: SerialKind,
     override val elementsCount: Int,

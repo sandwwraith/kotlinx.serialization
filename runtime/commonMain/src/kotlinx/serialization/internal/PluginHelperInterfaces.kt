@@ -9,6 +9,7 @@ import kotlinx.serialization.*
 @InternalSerializationApi
 public interface GeneratedSerializer<T> : KSerializer<T> {
     fun childSerializers(): Array<KSerializer<*>>
+    fun typeParametersSerializers(): Array<KSerializer<*>> = arrayOf()
 }
 
 /**
