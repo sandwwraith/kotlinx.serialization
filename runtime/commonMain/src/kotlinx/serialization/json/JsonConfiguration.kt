@@ -55,7 +55,7 @@ public data class JsonConfiguration @UnstableDefault constructor(
     internal val unquotedPrint: Boolean = false,
     internal val indent: String = defaultIndent,
     internal val useArrayPolymorphism: Boolean = false,
-    internal val classDiscriminator: String = defaultDiscriminator,
+    internal val classDiscriminator: String = defaultDiscriminator
 ) {
 
     init {

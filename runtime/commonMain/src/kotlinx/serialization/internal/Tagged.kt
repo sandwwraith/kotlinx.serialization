@@ -209,6 +209,7 @@ public abstract class TaggedDecoder<Tag : Any?> : Decoder,
     protected open fun decodeTaggedNull(tag: Tag): Nothing? = null
 
     @Deprecated(message = unitDeprecated, level = DeprecationLevel.ERROR)
+    @Suppress("DEPRECATION_ERROR")
     protected open fun decodeTaggedUnit(tag: Tag): Unit = UnitSerializer.deserialize(this)
     protected open fun decodeTaggedBoolean(tag: Tag): Boolean = decodeTaggedValue(tag) as Boolean
     protected open fun decodeTaggedByte(tag: Tag): Byte = decodeTaggedValue(tag) as Byte
@@ -221,6 +222,9 @@ public abstract class TaggedDecoder<Tag : Any?> : Decoder,
     protected open fun decodeTaggedString(tag: Tag): String = decodeTaggedValue(tag) as String
     protected open fun decodeTaggedEnum(tag: Tag, enumDescription: SerialDescriptor): Int =
         decodeTaggedValue(tag) as Int
+
+    protected open fun <T : Any?> decodeSerializableValue(deserializer: DeserializationStrategy<T>, previousValue: T?): T =
+        decodeSerializableValue(deserializer)
 
 
     // ---- Implementation of low-level API ----

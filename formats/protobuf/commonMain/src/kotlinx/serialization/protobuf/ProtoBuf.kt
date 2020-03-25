@@ -308,7 +308,8 @@ public class ProtoBuf(
                     val serializer = (deserializer as MapLikeSerializer<Any?, Any?, T, *>)
                     val mapEntrySerial = MapEntrySerializer(serializer.keySerializer, serializer.valueSerializer)
                     val oldSet = (previousValue as? Map<Any?, Any?>)?.entries
-                    val setOfEntries = SetSerializer(mapEntrySerial).merge(this, oldSet)
+                    @Suppress("DEPRECATION_ERROR") // to use .merge from LinkedHashSetSer
+                    val setOfEntries = LinkedHashSetSerializer(mapEntrySerial).merge(this, oldSet)
                     setOfEntries.associateBy({ it.key }, { it.value }) as T
                 }
                 deserializer.descriptor == ByteArraySerializer().descriptor -> {
