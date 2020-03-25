@@ -83,20 +83,13 @@ public open class PluginGeneratedSerialDescriptor(
         return indices
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        @Suppress("DEPRECATION_ERROR")
-        if (other !is SerialDescriptor) return false
-        if (serialName != other.serialName) return false
-        if (typeParameterDescriptors != other.typeParameters()) return false
-        return true
+    override fun equals(other: Any?): Boolean = equalsImpl(other) { otherDescriptor ->
+        typeParameterDescriptors == otherDescriptor.typeParameterDescriptors
     }
 
-    override fun hashCode(): Int {
-        var result = serialName.hashCode()
-        result = 31 * result + typeParameterDescriptors.hashCode()
-        return result
-    }
+    private val _hashCode: Int by lazy { hashCodeImpl(typeParameterDescriptors) }
+
+    override fun hashCode(): Int = _hashCode
 
     // todo: should type parameters be in serial name?
     override fun toString(): String {
@@ -106,14 +99,28 @@ public open class PluginGeneratedSerialDescriptor(
     }
 }
 
-// this function is for comparing user-defined and plugin-generated descriptors.
-// Do we really need it?
-@Suppress("DEPRECATION_ERROR")
-internal fun SerialDescriptor.typeParameters(): List<SerialDescriptor> = when (this) {
-    is PluginGeneratedSerialDescriptor -> typeParameterDescriptors
-    is SerialDescriptorImpl -> typeParameters
-    is ListLikeDescriptor -> listOf(elementDescriptor) // note: equals with ListLikeDesc is not symmetric because it does not accept other subclasses
-    is MapLikeDescriptor -> listOf(keyDescriptor, valueDescriptor)
-    is SerialDescriptorForNullable -> original.typeParameters() // also not symmetric.
-    else -> emptyList()
+internal inline fun <reified SD : SerialDescriptor> SD.equalsImpl(
+    other: Any?,
+    typeParamsAreEqual: (otherDescriptor: SD) -> Boolean
+): Boolean {
+    if (this === other) return true
+    if (other !is SD) return false
+    if (serialName != other.serialName) return false
+    if (!typeParamsAreEqual(other)) return false
+    if (this.elementsCount != other.elementsCount) return false
+    for (index in 0 until elementsCount) {
+        if (getElementDescriptor(index).serialName != other.getElementDescriptor(index).serialName) return false
+        if (getElementDescriptor(index).kind != other.getElementDescriptor(index).kind) return false
+    }
+    return true
+}
+
+@Suppress("NOTHING_TO_INLINE")
+internal inline fun SerialDescriptor.hashCodeImpl(typeParams: List<SerialDescriptor>): Int {
+    var result = serialName.hashCode()
+    result = 31 * result + typeParams.hashCode()
+    val elementDescriptors = elementDescriptors()
+    result = 31 * result + elementDescriptors.map { it.serialName }.hashCode()
+    result = 31 * result + elementDescriptors.map { it.kind }.hashCode()
+    return result
 }

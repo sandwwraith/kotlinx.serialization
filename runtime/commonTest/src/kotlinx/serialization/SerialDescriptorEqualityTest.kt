@@ -59,7 +59,7 @@ class SerialDescriptorEqualityTest {
     }
 
     @Test
-    fun canBeComparedToUserDescriptor() {
+    fun testCantBeComparedToUserDescriptor() {
         val typeParam = Int.serializer().descriptor
         val userDefinedWithInt =
             SerialDescriptor("TypeParamUsedTwice", StructureKind.CLASS, typeParam) {
@@ -69,7 +69,7 @@ class SerialDescriptorEqualityTest {
 
         val generatedWithInt = TypeParamUsedTwice.serializer(Int.serializer()).descriptor
         val generatedWithString = TypeParamUsedTwice.serializer(String.serializer()).descriptor
-        assertEquals(generatedWithInt, userDefinedWithInt)
+        assertNotEquals(generatedWithInt, userDefinedWithInt)
         assertNotEquals(generatedWithString, userDefinedWithInt)
     }
 }

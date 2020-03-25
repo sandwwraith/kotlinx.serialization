@@ -241,17 +241,12 @@ internal class SerialDescriptorImpl(
     override fun getElementDescriptor(index: Int): SerialDescriptor = elementDescriptors.getChecked(index)
     override fun isElementOptional(index: Int): Boolean = elementOptionality.getChecked(index)
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is SerialDescriptor) return false
-        if (serialName != other.serialName) return false
-        if (typeParameters != other.typeParameters()) return false
-        return true
-    }
+    override fun equals(other: Any?): Boolean =
+        equalsImpl(other) { otherDescriptor: SerialDescriptorImpl -> typeParameters == otherDescriptor.typeParameters }
 
-    override fun hashCode(): Int {
-        return serialName.hashCode()
-    }
+    private val _hashCode: Int by lazy { hashCodeImpl(typeParameters) }
+
+    override fun hashCode(): Int = _hashCode
 
     override fun toString(): String {
         return (0 until elementsCount).joinToString(", ", prefix = "$serialName(", postfix = ")") {
