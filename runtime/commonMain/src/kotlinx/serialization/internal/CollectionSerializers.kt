@@ -21,8 +21,8 @@ public sealed class AbstractCollectionSerializer<Element, Collection, Builder> :
     abstract override fun serialize(encoder: Encoder, value: Collection)
 
     @InternalSerializationApi
-    public fun merge(decoder: Decoder, old: Collection?): Collection {
-        val builder = old?.toBuilder() ?: builder()
+    public fun merge(decoder: Decoder, previous: Collection?): Collection {
+        val builder = previous?.toBuilder() ?: builder()
         val startIndex = builder.builderSize()
         val compositeDecoder = decoder.beginStructure(descriptor)
         if (compositeDecoder.decodeSequentially()) {
