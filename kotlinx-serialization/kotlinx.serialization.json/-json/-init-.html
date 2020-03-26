@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>kotlinx.serialization.json.Json.<init> - kotlinx-serialization</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">kotlinx-serialization</a>&nbsp;/&nbsp;<a href="../index.html">kotlinx.serialization.json</a>&nbsp;/&nbsp;<a href="index.html">Json</a>&nbsp;/&nbsp;<a href="./-init-.html">&lt;init&gt;</a><br/>
+<br/>
+<h1>&lt;init&gt;</h1>
+(common, js, jvm, native) <a name="kotlinx.serialization.json.Json$&lt;init&gt;(kotlin.Function1((kotlinx.serialization.json.JsonBuilder, kotlin.Unit)))"></a>
+<code><span class="identifier">&lt;init&gt;</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.json.Json$<init>(kotlin.Function1((kotlinx.serialization.json.JsonBuilder, kotlin.Unit)))/block">block</span><span class="symbol">:</span>&nbsp;<a href="../-json-builder/index.html"><span class="identifier">JsonBuilder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span></code>
+<p>DSL-like constructor for Json.
+This constructor is marked with unstable default: its default parameters values and behaviour may change in the next releases.</p>
+(common, js, jvm, native) <a name="kotlinx.serialization.json.Json$&lt;init&gt;(kotlinx.serialization.json.JsonConfiguration, kotlinx.serialization.modules.SerialModule)"></a>
+<code><span class="identifier">&lt;init&gt;</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.json.Json$<init>(kotlinx.serialization.json.JsonConfiguration, kotlinx.serialization.modules.SerialModule)/configuration">configuration</span><span class="symbol">:</span>&nbsp;<a href="../-json-configuration/index.html"><span class="identifier">JsonConfiguration</span></a>&nbsp;<span class="symbol">=</span>&nbsp;JsonConfiguration.Stable<span class="symbol">, </span><span class="identifier" id="kotlinx.serialization.json.Json$<init>(kotlinx.serialization.json.JsonConfiguration, kotlinx.serialization.modules.SerialModule)/context">context</span><span class="symbol">:</span>&nbsp;<a href="../../kotlinx.serialization.modules/-serial-module/index.html"><span class="identifier">SerialModule</span></a>&nbsp;<span class="symbol">=</span>&nbsp;EmptyModule<span class="symbol">)</span></code>
+<p>The main entry point to work with JSON serialization.
+It is typically used by constructing an application-specific instance, with configured json-specific behaviour
+(<a href="#">configuration</a> constructor parameter) and, if necessary, registered
+custom serializers (in <a href="../../kotlinx.serialization.modules/-serial-module/index.html#kotlinx.serialization.modules.SerialModule">SerialModule</a> provided by <a href="context.html#kotlinx.serialization.json.Json$context">context</a> constructor parameter).
+Then constructed instance can be used either as regular <a href="../../kotlinx.serialization/-serial-format/index.html#kotlinx.serialization.SerialFormat">SerialFormat</a> or <a href="../../kotlinx.serialization/-string-format/index.html#kotlinx.serialization.StringFormat">StringFormat</a>
+or for converting objects to <a href="../-json-element/index.html#kotlinx.serialization.json.JsonElement">JsonElement</a> back and forth.</p>
+<p>This is the only serial format which has first-class <a href="../-json-element/index.html#kotlinx.serialization.json.JsonElement">JsonElement</a> support.
+Any serializable class can be serialized to or from <a href="../-json-element/index.html#kotlinx.serialization.json.JsonElement">JsonElement</a> with <a href="from-json.html#kotlinx.serialization.json.Json$fromJson(kotlinx.serialization.DeserializationStrategy((kotlinx.serialization.json.Json.fromJson.T)), kotlinx.serialization.json.JsonElement)">Json.fromJson</a> and <a href="to-json.html#kotlinx.serialization.json.Json$toJson(kotlinx.serialization.SerializationStrategy((kotlinx.serialization.json.Json.toJson.T)), kotlinx.serialization.json.Json.toJson.T)">Json.toJson</a> respectively or
+serialize properties of <a href="../-json-element/index.html#kotlinx.serialization.json.JsonElement">JsonElement</a> type.</p>
+<p>Example of usage:</p>
+<pre><code>@Serializable
+class DataHolder(val id: Int, val data: String, val extensions: JsonElement)
+
+val json = Json(JsonConfiguration.Default)
+val instance = DataHolder(42, "some data", json { "additional key" to "value" })
+
+// Plain StringFormat usage
+val stringOutput: String = json.stringify(instance)
+
+// JsonElement serialization specific for Json only
+val jsonTree: JsonElement = json.toJson(instance)
+
+// Deserialize from string
+val deserialized: DataHolder = json.parse&lt;DataHolder&gt;(stringOutput)
+
+// Deserialize from json tree, Json-specific
+val deserializedFromTree: DataHolder = json.fromJson&lt;DataHolder&gt;(jsonTree)
+
+ // Deserialize from string to json tree, Json-specific
+ val deserializedToTree: JsonElement = json.fromJson&lt;JsonElement&gt;(stringOutput)
+</code></pre>
+<p>Note that <code>@ImplicitReflectionSerializer</code> are used in order to omit <code>DataHolder.serializer</code>, but this is a temporary limitation.</p>
+</BODY>
+</HTML>

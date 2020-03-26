@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>kotlinx.serialization.loads - kotlinx-serialization</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">kotlinx-serialization</a>&nbsp;/&nbsp;<a href="index.html">kotlinx.serialization</a>&nbsp;/&nbsp;<a href="./loads.html">loads</a><br/>
+<br/>
+<h1>loads</h1>
+(common, js, jvm, native) <a name="kotlinx.serialization$loads(kotlinx.serialization.BinaryFormat, kotlinx.serialization.DeserializationStrategy((kotlinx.serialization.loads.T)), kotlin.String)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-binary-format/index.html"><span class="identifier">BinaryFormat</span></a><span class="symbol">.</span><span class="identifier">loads</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization$loads(kotlinx.serialization.BinaryFormat, kotlinx.serialization.DeserializationStrategy((kotlinx.serialization.loads.T)), kotlin.String)/deserializer">deserializer</span><span class="symbol">:</span>&nbsp;<a href="-deserialization-strategy/index.html"><span class="identifier">DeserializationStrategy</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="kotlinx.serialization$loads(kotlinx.serialization.BinaryFormat, kotlinx.serialization.DeserializationStrategy((kotlinx.serialization.loads.T)), kotlin.String)/hex">hex</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span></code>
+<p>Parses <a href="loads.html#kotlinx.serialization$loads(kotlinx.serialization.BinaryFormat, kotlinx.serialization.DeserializationStrategy((kotlinx.serialization.loads.T)), kotlin.String)/hex">hex</a> string as a byte array and then deserializes it to an object of type <a href="loads.html#T">T</a>
+using given <a href="loads.html#kotlinx.serialization$loads(kotlinx.serialization.BinaryFormat, kotlinx.serialization.DeserializationStrategy((kotlinx.serialization.loads.T)), kotlin.String)/deserializer">deserializer</a>.</p>
+<p>Hex string must be of even length, contain only 0-9 and A-F/a-f characters and does
+not contain 0x prefix. Thus, each pair of characters is considered to be one byte, determined by
+its hex value.</p>
+<p>This method may be useful for debugging and testing.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="dumps.html#kotlinx.serialization$dumps(kotlinx.serialization.BinaryFormat, kotlinx.serialization.SerializationStrategy((kotlinx.serialization.dumps.T)), kotlinx.serialization.dumps.T)">dumps</a></p>
+</p>
+(common, js, jvm, native) <a name="kotlinx.serialization$loads(kotlinx.serialization.BinaryFormat, kotlin.String)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="-binary-format/index.html"><span class="identifier">BinaryFormat</span></a><span class="symbol">.</span><span class="identifier">loads</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization$loads(kotlinx.serialization.BinaryFormat, kotlin.String)/hex">hex</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span></code>
+</BODY>
+</HTML>

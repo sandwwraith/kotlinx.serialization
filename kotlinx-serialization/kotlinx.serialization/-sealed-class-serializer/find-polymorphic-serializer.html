@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>kotlinx.serialization.SealedClassSerializer.findPolymorphicSerializer - kotlinx-serialization</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">kotlinx-serialization</a>&nbsp;/&nbsp;<a href="../index.html">kotlinx.serialization</a>&nbsp;/&nbsp;<a href="index.html">SealedClassSerializer</a>&nbsp;/&nbsp;<a href="./find-polymorphic-serializer.html">findPolymorphicSerializer</a><br/>
+<br/>
+<h1>findPolymorphicSerializer</h1>
+(common, js, jvm, native) <a name="kotlinx.serialization.SealedClassSerializer$findPolymorphicSerializer(kotlinx.serialization.CompositeDecoder, kotlin.String)"></a>
+<code><span class="keyword">fun </span><span class="identifier">findPolymorphicSerializer</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.SealedClassSerializer$findPolymorphicSerializer(kotlinx.serialization.CompositeDecoder, kotlin.String)/decoder">decoder</span><span class="symbol">:</span>&nbsp;<a href="../-composite-decoder/index.html"><span class="identifier">CompositeDecoder</span></a><span class="symbol">, </span><span class="identifier" id="kotlinx.serialization.SealedClassSerializer$findPolymorphicSerializer(kotlinx.serialization.CompositeDecoder, kotlin.String)/klassName">klassName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-deserialization-strategy/index.html"><span class="identifier">DeserializationStrategy</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Lookups an actual serializer for given <a href="#">klassName</a> withing the current <a href="#">base class</a>.
+May use context from the <a href="#">decoder</a>.
+Throws <a href="../-serialization-exception/index.html#kotlinx.serialization.SerializationException">SerializationException</a> if serializer is not found.</p>
+(common, js, jvm, native) <a name="kotlinx.serialization.SealedClassSerializer$findPolymorphicSerializer(kotlinx.serialization.Encoder, kotlinx.serialization.SealedClassSerializer.T)"></a>
+<code><span class="keyword">fun </span><span class="identifier">findPolymorphicSerializer</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.SealedClassSerializer$findPolymorphicSerializer(kotlinx.serialization.Encoder, kotlinx.serialization.SealedClassSerializer.T)/encoder">encoder</span><span class="symbol">:</span>&nbsp;<a href="../-encoder/index.html"><span class="identifier">Encoder</span></a><span class="symbol">, </span><span class="identifier" id="kotlinx.serialization.SealedClassSerializer$findPolymorphicSerializer(kotlinx.serialization.Encoder, kotlinx.serialization.SealedClassSerializer.T)/value">value</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-serialization-strategy/index.html"><span class="identifier">SerializationStrategy</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Lookups an actual serializer for given <a href="#">value</a> within the current <a href="#">base class</a>.
+May use context from the <a href="#">encoder</a>.
+Throws <a href="../-serialization-exception/index.html#kotlinx.serialization.SerializationException">SerializationException</a> if serializer is not found.</p>
+</BODY>
+</HTML>

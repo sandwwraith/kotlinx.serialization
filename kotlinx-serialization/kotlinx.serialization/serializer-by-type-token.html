@@ -1,0 +1,19 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>serializerByTypeToken - kotlinx-serialization</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">kotlinx-serialization</a>&nbsp;/&nbsp;<a href="index.html">kotlinx.serialization</a>&nbsp;/&nbsp;<a href="./serializer-by-type-token.html">serializerByTypeToken</a><br/>
+<br/>
+<h1>serializerByTypeToken</h1>
+(jvm) <a name="kotlinx.serialization$serializerByTypeToken(java.lang.reflect.Type)"></a>
+<code><span class="keyword">fun </span><span class="identifier">serializerByTypeToken</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization$serializerByTypeToken(java.lang.reflect.Type)/type">type</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html"><span class="identifier">Type</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-k-serializer/index.html"><span class="identifier">KSerializer</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code>
+<p>Constructs a serializer for the given reflective Java <a href="serializer-by-type-token.html#kotlinx.serialization$serializerByTypeToken(java.lang.reflect.Type)/type">type</a>.
+<a href="./serializer-by-type-token.html">serializerByTypeToken</a> is intended to be used as an interoperability layer for libraries like GSON and Retrofit,
+that operate with reflective Java <a href="https://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html">Type</a> and cannot use <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/type-of.html">typeOf</a>.</p>
+<p>For application-level serialization, it is recommended to use <code>serializer&lt;T&gt;()</code> instead as it is aware of
+Kotlin-specific type information, such as nullability, sealed classes and object.</p>
+</BODY>
+</HTML>

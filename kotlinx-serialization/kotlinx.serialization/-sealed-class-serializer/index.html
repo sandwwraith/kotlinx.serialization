@@ -1,0 +1,118 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>kotlinx.serialization.SealedClassSerializer - kotlinx-serialization</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">kotlinx-serialization</a>&nbsp;/&nbsp;<a href="../index.html">kotlinx.serialization</a>&nbsp;/&nbsp;<a href="./index.html">SealedClassSerializer</a><br/>
+<br/>
+<h1>SealedClassSerializer</h1>
+<a name="kotlinx.serialization.SealedClassSerializer"></a>
+(common, js, jvm, native) <code><span class="keyword">class </span><span class="identifier">SealedClassSerializer</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AbstractPolymorphicSerializer</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>This class provides support for multiplatform polymorphic serialization of sealed classes.</p>
+<p>In contrary to <a href="../-polymorphic-serializer/index.html#kotlinx.serialization.PolymorphicSerializer">PolymorphicSerializer</a>, all known subclasses with serializers must be passed
+in <code>subclasses</code> and <code>subSerializers</code> constructor parameters.
+If a subclass is a sealed class itself, all its subclasses are registered as well.
+In most of the cases, you won't need to perform any manual setup:</p>
+<pre><code>@Serializable
+sealed class SimpleSealed {
+    @Serializable
+    public data class SubSealedA(val s: String) : SimpleSealed()
+
+    @Serializable
+    public data class SubSealedB(val i: Int) : SimpleSealed()
+}
+
+// will perform correct polymorphic serialization and deserialization:
+Json.stringify(SimpleSealed.serializer(), SubSealedA("foo"))
+</code></pre>
+<p>However, it is possible to register additional subclasses using regular <a href="../../kotlinx.serialization.modules/-serializers-module.html#kotlinx.serialization.modules$SerializersModule(kotlin.Function1((kotlinx.serialization.modules.SerializersModuleBuilder, kotlin.Unit)))">SerializersModule</a>.
+It is required when one of the subclasses is an abstract class itself:</p>
+<pre><code>@Serializable
+sealed class ProtocolWithAbstractClass {
+    @Serializable
+    abstract class Message : ProtocolWithAbstractClass() {
+        @Serializable
+        data class StringMessage(val description: String, val message: String) : Message()
+
+        @Serializable
+        data class IntMessage(val description: String, val message: Int) : Message()
+    }
+
+    @Serializable
+    data class ErrorMessage(val error: String) : ProtocolWithAbstractClass()
+}
+</code></pre>
+<p>In this case, <code>ErrorMessage</code> would be registered automatically by the plugin,
+but <code>StringMessage</code> and <code>IntMessage</code> require manual registration, as described in <a href="../-polymorphic-serializer/index.html#kotlinx.serialization.PolymorphicSerializer">PolymorphicSerializer</a> documentation:</p>
+<pre><code>val abstractContext = SerializersModule {
+    polymorphic(ProtocolWithAbstractClass::class, ProtocolWithAbstractClass.Message::class) {
+        subclass&lt;ProtocolWithAbstractClass.Message.IntMessage&gt;()
+        subclass&lt;ProtocolWithAbstractClass.Message.StringMessage&gt;()
+        // no need to register ProtocolWithAbstractClass.ErrorMessage
+    }
+}
+</code></pre>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>This class provides support for multiplatform polymorphic serialization of sealed classes.</p>
+<code><span class="identifier">&lt;init&gt;</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.SealedClassSerializer$<init>(kotlin.String, kotlin.reflect.KClass((kotlinx.serialization.SealedClassSerializer.T)), kotlin.Array((kotlin.reflect.KClass((kotlinx.serialization.SealedClassSerializer.T)))), kotlin.Array((kotlinx.serialization.KSerializer((kotlinx.serialization.SealedClassSerializer.T)))))/serialName">serialName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="kotlinx.serialization.SealedClassSerializer$<init>(kotlin.String, kotlin.reflect.KClass((kotlinx.serialization.SealedClassSerializer.T)), kotlin.Array((kotlin.reflect.KClass((kotlinx.serialization.SealedClassSerializer.T)))), kotlin.Array((kotlinx.serialization.KSerializer((kotlinx.serialization.SealedClassSerializer.T)))))/baseClass">baseClass</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="kotlinx.serialization.SealedClassSerializer$<init>(kotlin.String, kotlin.reflect.KClass((kotlinx.serialization.SealedClassSerializer.T)), kotlin.Array((kotlin.reflect.KClass((kotlinx.serialization.SealedClassSerializer.T)))), kotlin.Array((kotlinx.serialization.KSerializer((kotlinx.serialization.SealedClassSerializer.T)))))/subclasses">subclasses</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="kotlinx.serialization.SealedClassSerializer$<init>(kotlin.String, kotlin.reflect.KClass((kotlinx.serialization.SealedClassSerializer.T)), kotlin.Array((kotlin.reflect.KClass((kotlinx.serialization.SealedClassSerializer.T)))), kotlin.Array((kotlinx.serialization.KSerializer((kotlinx.serialization.SealedClassSerializer.T)))))/subclassSerializers">subclassSerializers</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><a href="../-k-serializer/index.html"><span class="identifier">KSerializer</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="base-class.html">baseClass</a></h4>
+</td>
+<td>
+<p>Base class for all classes that this polymorphic serializer can serialize or deserialize.</p>
+<code><span class="keyword">val </span><span class="identifier">baseClass</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="descriptor.html">descriptor</a></h4>
+</td>
+<td>
+<p>Describes the structure of the serializable representation of <a href="../-k-serializer/index.html#T">T</a>, produced
+by this serializer. Knowing the structure of the descriptor is required to determine
+the shape of the serialized form (e.g. what elements are encoded as lists and what as primitives)
+along with its metadata such as alternative names.</p>
+<code><span class="keyword">val </span><span class="identifier">descriptor</span><span class="symbol">: </span><a href="../-serial-descriptor/index.html"><span class="identifier">SerialDescriptor</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="find-polymorphic-serializer.html">findPolymorphicSerializer</a></h4>
+</td>
+<td>
+<p>Lookups an actual serializer for given <a href="#">klassName</a> withing the current <a href="#">base class</a>.
+May use context from the <a href="#">decoder</a>.
+Throws <a href="../-serialization-exception/index.html#kotlinx.serialization.SerializationException">SerializationException</a> if serializer is not found.</p>
+<code><span class="keyword">fun </span><span class="identifier">findPolymorphicSerializer</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.SealedClassSerializer$findPolymorphicSerializer(kotlinx.serialization.CompositeDecoder, kotlin.String)/decoder">decoder</span><span class="symbol">:</span>&nbsp;<a href="../-composite-decoder/index.html"><span class="identifier">CompositeDecoder</span></a><span class="symbol">, </span><span class="identifier" id="kotlinx.serialization.SealedClassSerializer$findPolymorphicSerializer(kotlinx.serialization.CompositeDecoder, kotlin.String)/klassName">klassName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-deserialization-strategy/index.html"><span class="identifier">DeserializationStrategy</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Lookups an actual serializer for given <a href="#">value</a> within the current <a href="#">base class</a>.
+May use context from the <a href="#">encoder</a>.
+Throws <a href="../-serialization-exception/index.html#kotlinx.serialization.SerializationException">SerializationException</a> if serializer is not found.</p>
+<code><span class="keyword">fun </span><span class="identifier">findPolymorphicSerializer</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.SealedClassSerializer$findPolymorphicSerializer(kotlinx.serialization.Encoder, kotlinx.serialization.SealedClassSerializer.T)/encoder">encoder</span><span class="symbol">:</span>&nbsp;<a href="../-encoder/index.html"><span class="identifier">Encoder</span></a><span class="symbol">, </span><span class="identifier" id="kotlinx.serialization.SealedClassSerializer$findPolymorphicSerializer(kotlinx.serialization.Encoder, kotlinx.serialization.SealedClassSerializer.T)/value">value</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-serialization-strategy/index.html"><span class="identifier">SerializationStrategy</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

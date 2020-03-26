@@ -1,0 +1,19 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>kotlinx.serialization.modules.SerializerAlreadyRegisteredException - kotlinx-serialization</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">kotlinx-serialization</a>&nbsp;/&nbsp;<a href="index.html">kotlinx.serialization.modules</a>&nbsp;/&nbsp;<a href="./-serializer-already-registered-exception.html">SerializerAlreadyRegisteredException</a><br/>
+<br/>
+<h1>SerializerAlreadyRegisteredException</h1>
+<a name="kotlinx.serialization.modules.SerializerAlreadyRegisteredException"></a>
+(common, js, native) <code><span class="keyword">class </span><span class="identifier">SerializerAlreadyRegisteredException</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/IllegalArgumentException.html"><span class="identifier">IllegalArgumentException</span></a></code><a name="kotlinx.serialization.modules.SerializerAlreadyRegisteredException"></a>
+(jvm) <code><span class="keyword">class </span><span class="identifier">SerializerAlreadyRegisteredException</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-argument-exception/index.html"><span class="identifier">IllegalArgumentException</span></a></code>
+<p>Thrown on an attempt to register serializer (for contextual or polymorphic serialization)
+for some class twice.</p>
+<p>Registering in the same module twice is prohibited. In case you are combining modules
+with <a href="plus.html#kotlinx.serialization.modules$plus(kotlinx.serialization.modules.SerialModule, kotlinx.serialization.modules.SerialModule)">SerialModule.plus</a>, consider using <a href="overwrite-with.html#kotlinx.serialization.modules$overwriteWith(kotlinx.serialization.modules.SerialModule, kotlinx.serialization.modules.SerialModule)">SerialModule.overwriteWith</a> if you want overwriting behaviour.</p>
+</BODY>
+</HTML>

@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>kotlinx.serialization.json.Json.toJson - kotlinx-serialization</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">kotlinx-serialization</a>&nbsp;/&nbsp;<a href="../index.html">kotlinx.serialization.json</a>&nbsp;/&nbsp;<a href="index.html">Json</a>&nbsp;/&nbsp;<a href="./to-json.html">toJson</a><br/>
+<br/>
+<h1>toJson</h1>
+(common, js, jvm, native) <a name="kotlinx.serialization.json.Json$toJson(kotlinx.serialization.SerializationStrategy((kotlinx.serialization.json.Json.toJson.T)), kotlinx.serialization.json.Json.toJson.T)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">toJson</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.json.Json$toJson(kotlinx.serialization.SerializationStrategy((kotlinx.serialization.json.Json.toJson.T)), kotlinx.serialization.json.Json.toJson.T)/serializer">serializer</span><span class="symbol">:</span>&nbsp;<a href="../../kotlinx.serialization/-serialization-strategy/index.html"><span class="identifier">SerializationStrategy</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="kotlinx.serialization.json.Json$toJson(kotlinx.serialization.SerializationStrategy((kotlinx.serialization.json.Json.toJson.T)), kotlinx.serialization.json.Json.toJson.T)/value">value</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-json-element/index.html"><span class="identifier">JsonElement</span></a></code>
+<p>Serializes <a href="to-json.html#kotlinx.serialization.json.Json$toJson(kotlinx.serialization.SerializationStrategy((kotlinx.serialization.json.Json.toJson.T)), kotlinx.serialization.json.Json.toJson.T)/value">value</a> into an equivalent <a href="../-json-element/index.html#kotlinx.serialization.json.JsonElement">JsonElement</a> using provided <a href="to-json.html#kotlinx.serialization.json.Json$toJson(kotlinx.serialization.SerializationStrategy((kotlinx.serialization.json.Json.toJson.T)), kotlinx.serialization.json.Json.toJson.T)/serializer">serializer</a>.</p>
+<h3>Exceptions</h3>
+<p><a name="JsonException"></a>
+<code>JsonException</code> - if given value can not be encoded</p>
+<p><a name="SerializationException"></a>
+<code>SerializationException</code> - if given value can not be serialized</p>
+(common, js, jvm, native) <a name="kotlinx.serialization.json.Json$toJson(kotlinx.serialization.json.Json.toJson.T)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">toJson</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.json.Json$toJson(kotlinx.serialization.json.Json.toJson.T)/value">value</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-json-element/index.html"><span class="identifier">JsonElement</span></a></code>
+<p>Serializes <a href="to-json.html#kotlinx.serialization.json.Json$toJson(kotlinx.serialization.json.Json.toJson.T)/value">value</a> into an equivalent <a href="../-json-element/index.html#kotlinx.serialization.json.JsonElement">JsonElement</a> using serializer registered in the module.</p>
+<h3>Exceptions</h3>
+<p><a name="JsonException"></a>
+<code>JsonException</code> - if given value can not be encoded</p>
+<p><a name="SerializationException"></a>
+<code>SerializationException</code> - if given value can not be serialized</p>
+</BODY>
+</HTML>

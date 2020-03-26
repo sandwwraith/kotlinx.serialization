@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>kotlinx.serialization.ImplicitReflectionSerializer.<init> - kotlinx-serialization</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">kotlinx-serialization</a>&nbsp;/&nbsp;<a href="../index.html">kotlinx.serialization</a>&nbsp;/&nbsp;<a href="index.html">ImplicitReflectionSerializer</a>&nbsp;/&nbsp;<a href="./-init-.html">&lt;init&gt;</a><br/>
+<br/>
+<h1>&lt;init&gt;</h1>
+<a name="kotlinx.serialization.ImplicitReflectionSerializer$&lt;init&gt;()"></a>
+(common, js, jvm, native) <code><span class="identifier">&lt;init&gt;</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>This annotation marks declaration which try to obtain serializer implicitly
+using reflection, e.g. from KClass or instance itself.</p>
+<p>This approach is discouraged in general because it has several drawbacks, including:</p>
+<ul><li>Reflection is not available on Kotlin/Native and is very limited on Kotlin/JS.</li>
+<li>Reflection won't infer correct serializers for generic classes, like collections.</li>
+<li>SerialModule may not be available, since it is bound to particular format, not serializer.</li>
+<li>Such reflection calls are usually slow.</li>
+</ul>
+<p>It's always better to specify serializer explicitly, using generated <code>.serializer()</code>
+function on serializable class' companion.</p>
+</BODY>
+</HTML>

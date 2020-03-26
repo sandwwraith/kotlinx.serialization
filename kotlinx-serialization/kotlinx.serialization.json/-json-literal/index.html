@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>kotlinx.serialization.json.JsonLiteral - kotlinx-serialization</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">kotlinx-serialization</a>&nbsp;/&nbsp;<a href="../index.html">kotlinx.serialization.json</a>&nbsp;/&nbsp;<a href="./index.html">JsonLiteral</a><br/>
+<br/>
+<h1>JsonLiteral</h1>
+<a name="kotlinx.serialization.json.JsonLiteral"></a>
+(common, js, jvm, native) <code><span class="keyword">class </span><span class="identifier">JsonLiteral</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-json-primitive/index.html"><span class="identifier">JsonPrimitive</span></a></code>
+<p>Class representing JSON literals: numbers, booleans and string.
+Strings are always quoted.</p>
+<p><a href="is-string.html#kotlinx.serialization.json.JsonLiteral$isString">isString</a> indicates whether literal was explicitly constructed as a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> and
+whether it should be serialized as one. E.g. <code>JsonLiteral("42", false)</code>
+and <code>JsonLiteral("42", true)</code> will be serialized as <code>42</code> and <code>"42"</code> respectively.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Creates number literal</p>
+<code><span class="identifier">&lt;init&gt;</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.json.JsonLiteral$<init>(kotlin.Number)/number">number</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html"><span class="identifier">Number</span></a><span class="symbol">)</span></code>
+<p>Creates boolean literal</p>
+<code><span class="identifier">&lt;init&gt;</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.json.JsonLiteral$<init>(kotlin.Boolean)/boolean">boolean</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span></code>
+<p>Creates quoted string literal</p>
+<code><span class="identifier">&lt;init&gt;</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.json.JsonLiteral$<init>(kotlin.String)/string">string</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="content.html">content</a></h4>
+</td>
+<td>
+<p>Content of given element without quotes. For <a href="../-json-null/index.html#kotlinx.serialization.json.JsonNull">JsonNull</a> this methods returns <code>null</code></p>
+<code><span class="keyword">val </span><span class="identifier">content</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="content-or-null.html">contentOrNull</a></h4>
+</td>
+<td>
+<p>Content of the given element without quotes or <code>null</code> if current element is <a href="../-json-null/index.html#kotlinx.serialization.json.JsonNull">JsonNull</a></p>
+<code><span class="keyword">val </span><span class="identifier">contentOrNull</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="is-string.html">isString</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">isString</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="equals.html">equals</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">equals</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.json.JsonLiteral$equals(kotlin.Any)/other">other</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="hash-code.html">hashCode</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">hashCode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="to-string.html">toString</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">toString</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

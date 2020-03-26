@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>kotlinx.serialization.cbor.Cbor.<init> - kotlinx-serialization</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">kotlinx-serialization</a>&nbsp;/&nbsp;<a href="../index.html">kotlinx.serialization.cbor</a>&nbsp;/&nbsp;<a href="index.html">Cbor</a>&nbsp;/&nbsp;<a href="./-init-.html">&lt;init&gt;</a><br/>
+<br/>
+<h1>&lt;init&gt;</h1>
+<a name="kotlinx.serialization.cbor.Cbor$&lt;init&gt;(kotlinx.serialization.UpdateMode, kotlin.Boolean, kotlinx.serialization.modules.SerialModule)"></a>
+(common, js, jvm, native) <code><span class="identifier">&lt;init&gt;</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.cbor.Cbor$<init>(kotlinx.serialization.UpdateMode, kotlin.Boolean, kotlinx.serialization.modules.SerialModule)/updateMode">updateMode</span><span class="symbol">:</span>&nbsp;<a href="../../kotlinx.serialization/-update-mode/index.html"><span class="identifier">UpdateMode</span></a>&nbsp;<span class="symbol">=</span>&nbsp;UpdateMode.BANNED<span class="symbol">, </span><span class="identifier" id="kotlinx.serialization.cbor.Cbor$<init>(kotlinx.serialization.UpdateMode, kotlin.Boolean, kotlinx.serialization.modules.SerialModule)/encodeDefaults">encodeDefaults</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a>&nbsp;<span class="symbol">=</span>&nbsp;true<span class="symbol">, </span><span class="identifier" id="kotlinx.serialization.cbor.Cbor$<init>(kotlinx.serialization.UpdateMode, kotlin.Boolean, kotlinx.serialization.modules.SerialModule)/context">context</span><span class="symbol">:</span>&nbsp;<a href="../../kotlinx.serialization.modules/-serial-module/index.html"><span class="identifier">SerialModule</span></a>&nbsp;<span class="symbol">=</span>&nbsp;EmptyModule<span class="symbol">)</span></code>
+<p>Implements <a href="dump.html#kotlinx.serialization.cbor.Cbor$dump(kotlinx.serialization.SerializationStrategy((kotlinx.serialization.cbor.Cbor.dump.T)), kotlinx.serialization.cbor.Cbor.dump.T)">encoding</a> and <a href="load.html#kotlinx.serialization.cbor.Cbor$load(kotlinx.serialization.DeserializationStrategy((kotlinx.serialization.cbor.Cbor.load.T)), kotlin.ByteArray)">decoding</a> classes to/from bytes
+using <a href="https://tools.ietf.org/html/rfc7049">CBOR</a> specification.
+It is typically used by constructing an application-specific instance, with configured behaviour, and,
+if necessary, registered custom serializers (in <a href="../../kotlinx.serialization.modules/-serial-module/index.html#kotlinx.serialization.modules.SerialModule">SerialModule</a> provided by <a href="context.html#kotlinx.serialization.cbor.Cbor$context">context</a> constructor parameter).</p>
+<h3>Known caveats and limitations:</h3>
+<p>Supports reading collections of both definite and indefinite lengths; however,
+serialization always writes maps and lists as <a href="https://tools.ietf.org/html/rfc7049#section-2.2.1">indefinite-length</a> ones.
+Does not support <a href="https://tools.ietf.org/html/rfc7049#section-2.4">optional tags</a> representing datetime, bignums, etc.
+Fully support CBOR maps, which, unlike JSON ones, may contain keys of non-primitive types, and may produce such maps
+from corresponding Kotlin objects. However, other 3rd-party parsers (e.g. <code>jackson-dataformat-cbor</code>) may not accept such maps.</p>
+<h3>Parameters</h3>
+<p><a name="encodeDefaults"></a>
+<code>encodeDefaults</code> - specifies whether default values of Kotlin properties are encoded.</p>
+</BODY>
+</HTML>

@@ -1,0 +1,111 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>kotlinx.serialization.cbor.Cbor - kotlinx-serialization</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">kotlinx-serialization</a>&nbsp;/&nbsp;<a href="../index.html">kotlinx.serialization.cbor</a>&nbsp;/&nbsp;<a href="./index.html">Cbor</a><br/>
+<br/>
+<h1>Cbor</h1>
+<a name="kotlinx.serialization.cbor.Cbor"></a>
+(common, js, jvm, native) <code><span class="keyword">class </span><span class="identifier">Cbor</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../kotlinx.serialization/-binary-format/index.html"><span class="identifier">BinaryFormat</span></a></code>
+<p>Implements <a href="dump.html#kotlinx.serialization.cbor.Cbor$dump(kotlinx.serialization.SerializationStrategy((kotlinx.serialization.cbor.Cbor.dump.T)), kotlinx.serialization.cbor.Cbor.dump.T)">encoding</a> and <a href="load.html#kotlinx.serialization.cbor.Cbor$load(kotlinx.serialization.DeserializationStrategy((kotlinx.serialization.cbor.Cbor.load.T)), kotlin.ByteArray)">decoding</a> classes to/from bytes
+using <a href="https://tools.ietf.org/html/rfc7049">CBOR</a> specification.
+It is typically used by constructing an application-specific instance, with configured behaviour, and,
+if necessary, registered custom serializers (in <a href="../../kotlinx.serialization.modules/-serial-module/index.html#kotlinx.serialization.modules.SerialModule">SerialModule</a> provided by <a href="context.html#kotlinx.serialization.cbor.Cbor$context">context</a> constructor parameter).</p>
+<h3>Known caveats and limitations:</h3>
+<p>Supports reading collections of both definite and indefinite lengths; however,
+serialization always writes maps and lists as <a href="https://tools.ietf.org/html/rfc7049#section-2.2.1">indefinite-length</a> ones.
+Does not support <a href="https://tools.ietf.org/html/rfc7049#section-2.4">optional tags</a> representing datetime, bignums, etc.
+Fully support CBOR maps, which, unlike JSON ones, may contain keys of non-primitive types, and may produce such maps
+from corresponding Kotlin objects. However, other 3rd-party parsers (e.g. <code>jackson-dataformat-cbor</code>) may not accept such maps.</p>
+<h3>Parameters</h3>
+<p><a name="encodeDefaults"></a>
+<code>encodeDefaults</code> - specifies whether default values of Kotlin properties are encoded.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="-default.html">Default</a></h4>
+</td>
+<td>
+<code><span class="keyword">companion</span> <span class="keyword">object </span><span class="identifier">Default</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../kotlinx.serialization/-binary-format/index.html"><span class="identifier">BinaryFormat</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Implements <a href="dump.html#kotlinx.serialization.cbor.Cbor$dump(kotlinx.serialization.SerializationStrategy((kotlinx.serialization.cbor.Cbor.dump.T)), kotlinx.serialization.cbor.Cbor.dump.T)">encoding</a> and <a href="load.html#kotlinx.serialization.cbor.Cbor$load(kotlinx.serialization.DeserializationStrategy((kotlinx.serialization.cbor.Cbor.load.T)), kotlin.ByteArray)">decoding</a> classes to/from bytes
+using <a href="https://tools.ietf.org/html/rfc7049">CBOR</a> specification.
+It is typically used by constructing an application-specific instance, with configured behaviour, and,
+if necessary, registered custom serializers (in <a href="../../kotlinx.serialization.modules/-serial-module/index.html#kotlinx.serialization.modules.SerialModule">SerialModule</a> provided by <a href="context.html#kotlinx.serialization.cbor.Cbor$context">context</a> constructor parameter).</p>
+<code><span class="identifier">&lt;init&gt;</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.cbor.Cbor$<init>(kotlinx.serialization.UpdateMode, kotlin.Boolean, kotlinx.serialization.modules.SerialModule)/updateMode">updateMode</span><span class="symbol">:</span>&nbsp;<a href="../../kotlinx.serialization/-update-mode/index.html"><span class="identifier">UpdateMode</span></a>&nbsp;<span class="symbol">=</span>&nbsp;UpdateMode.BANNED<span class="symbol">, </span><span class="identifier" id="kotlinx.serialization.cbor.Cbor$<init>(kotlinx.serialization.UpdateMode, kotlin.Boolean, kotlinx.serialization.modules.SerialModule)/encodeDefaults">encodeDefaults</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a>&nbsp;<span class="symbol">=</span>&nbsp;true<span class="symbol">, </span><span class="identifier" id="kotlinx.serialization.cbor.Cbor$<init>(kotlinx.serialization.UpdateMode, kotlin.Boolean, kotlinx.serialization.modules.SerialModule)/context">context</span><span class="symbol">:</span>&nbsp;<a href="../../kotlinx.serialization.modules/-serial-module/index.html"><span class="identifier">SerialModule</span></a>&nbsp;<span class="symbol">=</span>&nbsp;EmptyModule<span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="context.html">context</a></h4>
+</td>
+<td>
+<p>Contains all serializers registered by format user for <a href="../../kotlinx.serialization/-contextual-serialization/index.html#kotlinx.serialization.ContextualSerialization">ContextualSerialization</a> and <a href="../../kotlinx.serialization/-polymorphic/index.html#kotlinx.serialization.Polymorphic">Polymorphic</a> serialization.</p>
+<code><span class="keyword">val </span><span class="identifier">context</span><span class="symbol">: </span><a href="../../kotlinx.serialization.modules/-serial-module/index.html"><span class="identifier">SerialModule</span></a></code></td>
+</tr>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="encode-defaults.html">encodeDefaults</a></h4>
+</td>
+<td>
+<p>specifies whether default values of Kotlin properties are encoded.</p>
+<code><span class="keyword">val </span><span class="identifier">encodeDefaults</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="update-mode.html">updateMode</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">updateMode</span><span class="symbol">: </span><a href="../../kotlinx.serialization/-update-mode/index.html"><span class="identifier">UpdateMode</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="dump.html">dump</a></h4>
+</td>
+<td>
+<p>Serializes <a href="dump.html#kotlinx.serialization.cbor.Cbor$dump(kotlinx.serialization.SerializationStrategy((kotlinx.serialization.cbor.Cbor.dump.T)), kotlinx.serialization.cbor.Cbor.dump.T)/value">value</a> to CBOR bytes using given <a href="dump.html#kotlinx.serialization.cbor.Cbor$dump(kotlinx.serialization.SerializationStrategy((kotlinx.serialization.cbor.Cbor.dump.T)), kotlinx.serialization.cbor.Cbor.dump.T)/serializer">serializer</a>.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">dump</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.cbor.Cbor$dump(kotlinx.serialization.SerializationStrategy((kotlinx.serialization.cbor.Cbor.dump.T)), kotlinx.serialization.cbor.Cbor.dump.T)/serializer">serializer</span><span class="symbol">:</span>&nbsp;<a href="../../kotlinx.serialization/-serialization-strategy/index.html"><span class="identifier">SerializationStrategy</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="kotlinx.serialization.cbor.Cbor$dump(kotlinx.serialization.SerializationStrategy((kotlinx.serialization.cbor.Cbor.dump.T)), kotlinx.serialization.cbor.Cbor.dump.T)/value">value</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a></code></td>
+</tr>
+<tr>
+<td>
+(common, js, jvm, native) 
+<h4><a href="load.html">load</a></h4>
+</td>
+<td>
+<p>Loads value of type <a href="load.html#T">T</a> from given CBOR <a href="load.html#kotlinx.serialization.cbor.Cbor$load(kotlinx.serialization.DeserializationStrategy((kotlinx.serialization.cbor.Cbor.load.T)), kotlin.ByteArray)/bytes">bytes</a> using <a href="load.html#kotlinx.serialization.cbor.Cbor$load(kotlinx.serialization.DeserializationStrategy((kotlinx.serialization.cbor.Cbor.load.T)), kotlin.ByteArray)/deserializer">deserializer</a>.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">load</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.cbor.Cbor$load(kotlinx.serialization.DeserializationStrategy((kotlinx.serialization.cbor.Cbor.load.T)), kotlin.ByteArray)/deserializer">deserializer</span><span class="symbol">:</span>&nbsp;<a href="../../kotlinx.serialization/-deserialization-strategy/index.html"><span class="identifier">DeserializationStrategy</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="kotlinx.serialization.cbor.Cbor$load(kotlinx.serialization.DeserializationStrategy((kotlinx.serialization.cbor.Cbor.load.T)), kotlin.ByteArray)/bytes">bytes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

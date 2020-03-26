@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>kotlinx.serialization.builtins.AbstractEncoder.beginStructure - kotlinx-serialization</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">kotlinx-serialization</a>&nbsp;/&nbsp;<a href="../index.html">kotlinx.serialization.builtins</a>&nbsp;/&nbsp;<a href="index.html">AbstractEncoder</a>&nbsp;/&nbsp;<a href="./begin-structure.html">beginStructure</a><br/>
+<br/>
+<h1>beginStructure</h1>
+<a name="kotlinx.serialization.builtins.AbstractEncoder$beginStructure(kotlinx.serialization.SerialDescriptor, kotlin.Array((kotlinx.serialization.KSerializer((kotlin.Any)))))"></a>
+(common, js, jvm, native) <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">beginStructure</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.builtins.AbstractEncoder$beginStructure(kotlinx.serialization.SerialDescriptor, kotlin.Array((kotlinx.serialization.KSerializer((kotlin.Any)))))/descriptor">descriptor</span><span class="symbol">:</span>&nbsp;<a href="../../kotlinx.serialization/-serial-descriptor/index.html"><span class="identifier">SerialDescriptor</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="kotlinx.serialization.builtins.AbstractEncoder$beginStructure(kotlinx.serialization.SerialDescriptor, kotlin.Array((kotlinx.serialization.KSerializer((kotlin.Any)))))/typeSerializers">typeSerializers</span><span class="symbol">:</span>&nbsp;<a href="../../kotlinx.serialization/-k-serializer/index.html"><span class="identifier">KSerializer</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../kotlinx.serialization/-composite-encoder/index.html"><span class="identifier">CompositeEncoder</span></a></code>
+<p>Encodes the beginning of the nested structure in a serialized form
+and returns <a href="../../kotlinx.serialization/-composite-decoder/index.html#kotlinx.serialization.CompositeDecoder">CompositeDecoder</a> responsible for encoding this very structure.
+E.g the hierarchy:</p>
+<pre><code>class StringHolder(val stringValue: String)
+class Holder(val stringHolder: StringHolder)
+</code></pre>
+<p>with the following serialized form in JSON:</p>
+<pre><code>{
+  "stringHolder" : { "stringValue": "value" }
+}
+</code></pre>
+<p>will be roughly represented as the following sequence of calls:</p>
+<pre><code>// Holder serializer
+fun serialize(encoder: Encoder, value: Holder) {
+    val composite = encoder.beginStructure(descriptor) // the very first opening bracket '{'
+    composite.encodeSerializableElement(descriptor, 0, value.stringHolder) // Serialize nested StringHolder
+    composite.endStructure(descriptor) // The very last closing bracket
+}
+
+// StringHolder serializer
+fun serialize(encoder: Encoder, value: StringHolder) {
+    val composite = encoder.beginStructure(descriptor) // One more '{' when the key "stringHolder" is already written
+    composite.encodeStringElement(descriptor, 0, value.stringValue) // Serialize actual value
+    composite.endStructure(descriptor) // Closing bracket
+}
+
+</code></pre>
+<p><a href="../../kotlinx.serialization/-encoder/begin-structure.html#kotlinx.serialization.Encoder$beginStructure(kotlinx.serialization.SerialDescriptor, kotlin.Array((kotlinx.serialization.KSerializer((kotlin.Any)))))/typeSerializers">typeSerializers</a> are used for encoding collections or classes with type parameters and are serializers
+of type parameters.</p>
+</BODY>
+</HTML>
