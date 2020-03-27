@@ -21,5 +21,8 @@ The class must be annotated as <code>@Serializable</code> or be one of the built
 <p>This method has all the restrictions implied by <a href="../-implicit-reflection-serializer/index.html#kotlinx.serialization.ImplicitReflectionSerializer">ImplicitReflectionSerializer</a>, i.e.,
 it will fail on an attempt to retrieve a serializer for generic class.
 For classes with type parameters <code>serializer(KType)</code> should be used instead.</p>
+<h3>Exceptions</h3>
+<p><a name="SerializationException"></a>
+<code>SerializationException</code> - if serializer can't be found.</p>
 </BODY>
 </HTML>

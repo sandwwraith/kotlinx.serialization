@@ -11,7 +11,7 @@
 <a name="kotlinx.serialization.Properties$&lt;init&gt;(kotlinx.serialization.modules.SerialModule)"></a>
 (common, js, jvm, native) <code><span class="identifier">&lt;init&gt;</span><span class="symbol">(</span><span class="identifier" id="kotlinx.serialization.Properties$<init>(kotlinx.serialization.modules.SerialModule)/context">context</span><span class="symbol">:</span>&nbsp;<a href="../../kotlinx.serialization.modules/-serial-module/index.html"><span class="identifier">SerialModule</span></a>&nbsp;<span class="symbol">=</span>&nbsp;EmptyModule<span class="symbol">)</span></code>
 <p>Transforms a <a href="../-serializable/index.html#kotlinx.serialization.Serializable">Serializable</a> class' properties into a single flat <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a> which consists of
-string keys and primitive type values, and vice versa.</p>
+string keys and primitive type values, and vice versa. Located in separated <code>kotlinx-serialization-properties</code> artifact.</p>
 <p>If the given class has non-primitive property <code>d</code> of arbitrary type <code>D</code>, <code>D</code> values are inserted
 into the same map; keys for such values are prefixed with string <code>d.</code>:</p>
 <pre><code>@Serializable

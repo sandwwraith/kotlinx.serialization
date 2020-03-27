@@ -11,8 +11,8 @@
 <a name="kotlinx.serialization.CompositeDecoder"></a>
 (common, js, jvm, native) <code><span class="keyword">interface </span><span class="identifier">CompositeDecoder</span></code>
 <p><a href="index.html#kotlinx.serialization.CompositeDecoder">CompositeDecoder</a> is a part of decoding process that is bound to a particular structured part of
-the serialized form, described by the serial descriptor passed to <a href="../-decoder/begin-structure.html#kotlinx.serialization.Decoder$beginStructure(kotlinx.serialization.SerialDescriptor, kotlin.Array((kotlinx.serialization.KSerializer((kotlin.Any)))))">Decoder.beginStructure</a>.
-Typically, for unordered data, <a href="index.html#kotlinx.serialization.CompositeDecoder">CompositeDecoder</a> is used by a serializer withing a <a href="decode-element-index.html#kotlinx.serialization.CompositeDecoder$decodeElementIndex(kotlinx.serialization.SerialDescriptor)">decodeElementIndex</a>-based
+the serialized form, described by the serial descriptor passed to <a href="../-decoder/begin-structure.html#kotlinx.serialization.Decoder$beginStructure(kotlinx.serialization.SerialDescriptor, kotlin.Array((kotlinx.serialization.KSerializer((kotlin.Any)))))">Decoder.beginStructure</a>.</p>
+<p>Typically, for unordered data, <a href="index.html#kotlinx.serialization.CompositeDecoder">CompositeDecoder</a> is used by a serializer withing a <a href="decode-element-index.html#kotlinx.serialization.CompositeDecoder$decodeElementIndex(kotlinx.serialization.SerialDescriptor)">decodeElementIndex</a>-based
 loop that decodes all the required data one-by-one in any order and then terminates by calling <a href="end-structure.html#kotlinx.serialization.CompositeDecoder$endStructure(kotlinx.serialization.SerialDescriptor)">endStructure</a>.
 Please refer to <a href="decode-element-index.html#kotlinx.serialization.CompositeDecoder$decodeElementIndex(kotlinx.serialization.SerialDescriptor)">decodeElementIndex</a> for example of such loop.</p>
 <p>All <code>decode*</code> methods have <code>index</code> and <code>serialDescriptor</code> parameters with a strict semantics and constraints:</p>

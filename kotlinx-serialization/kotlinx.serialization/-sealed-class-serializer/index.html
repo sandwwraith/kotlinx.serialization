@@ -13,7 +13,8 @@
 <p>This class provides support for multiplatform polymorphic serialization of sealed classes.</p>
 <p>In contrary to <a href="../-polymorphic-serializer/index.html#kotlinx.serialization.PolymorphicSerializer">PolymorphicSerializer</a>, all known subclasses with serializers must be passed
 in <code>subclasses</code> and <code>subSerializers</code> constructor parameters.
-If a subclass is a sealed class itself, all its subclasses are registered as well.
+If a subclass is a sealed class itself, all its subclasses are registered as well.</p>
+<p>If sealed hierarchy is marked <a href="../-serializable/index.html#kotlinx.serialization.Serializable">@Serializable</a>, an instance of this class is constructed automatically.
 In most of the cases, you won't need to perform any manual setup:</p>
 <pre><code>@Serializable
 sealed class SimpleSealed {

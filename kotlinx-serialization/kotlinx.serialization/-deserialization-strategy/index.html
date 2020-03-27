@@ -75,7 +75,8 @@ property with the given index.</p>
 <td>
 <p>KSerializer is responsible for the representation of a serial form of a type <a href="../-k-serializer/index.html#T">T</a>
 in terms of <a href="../-encoder/index.html#kotlinx.serialization.Encoder">encoders</a> and <a href="../-decoder/index.html#kotlinx.serialization.Decoder">decoders</a> and for constructing and deconstructing <a href="../-k-serializer/index.html#T">T</a>
-from/to a sequence of encoding primitives.</p>
+from/to a sequence of encoding primitives. For classes marked with <a href="../-serializable/index.html#kotlinx.serialization.Serializable">@Serializable</a>, can be
+obtained from generated companion extension <code>.serializer()</code> or from <a href="../kotlin.reflect.-k-class/serializer.html">serializer()</a> function.</p>
 <code><span class="keyword">interface </span><span class="identifier">KSerializer</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-serialization-strategy/index.html"><span class="identifier">SerializationStrategy</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="./index.html"><span class="identifier">DeserializationStrategy</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code></td>
 </tr>
 </tbody>
